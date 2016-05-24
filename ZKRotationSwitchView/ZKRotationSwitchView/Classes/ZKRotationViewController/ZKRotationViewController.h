@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ZKRotationViewController : UIViewController
-
++ (instancetype)showInController:(UIViewController *)viewController;
 @end

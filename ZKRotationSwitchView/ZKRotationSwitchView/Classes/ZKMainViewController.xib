@@ -14,7 +14,33 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqS-Z1-ElL">
+                    <rect key="frame" x="225" y="530" width="150" height="40"/>
+                    <color key="backgroundColor" red="1" green="0.69803921570000005" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="B1Q-Ee-LYd"/>
+                        <constraint firstAttribute="height" constant="40" id="GWm-ml-nWb"/>
+                    </constraints>
+                    <state key="normal" title="切换">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="switchButtonClick" destination="-1" eventType="touchUpInside" id="49Y-Fp-Dc2"/>
+                    </connections>
+                </button>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="jqS-Z1-ElL" secondAttribute="bottom" constant="30" id="BjZ-Zc-mXJ"/>
+                <constraint firstItem="jqS-Z1-ElL" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="200" id="rWE-HM-PUd"/>
+                <constraint firstItem="jqS-Z1-ElL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zkK-ud-Tvq"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="rWE-HM-PUd"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>

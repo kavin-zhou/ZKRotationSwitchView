@@ -11,14 +11,12 @@
 #define ScreenWidth     [UIScreen mainScreen].bounds.size.width
 
 @interface ZKRotationViewController ()
-@property (nonatomic, assign) CGPoint startPoint;  //记录拖动始点
-@property (nonatomic, assign) BOOL isMoving;       //正在拖动
-@property (nonatomic, strong) UIView *contentView; //被拖动的view
 @end
 
 @implementation ZKRotationViewController
 
-static const NSTimeInterval kAnimationDuration = 0.25;
+static const NSTimeInterval kAnimationDuration = 0.35;
+static const NSUInteger kDivideNum = 6;     //M_PI被平分的份数
 
 - (void)viewDidLoad
 {
@@ -28,7 +26,7 @@ static const NSTimeInterval kAnimationDuration = 0.25;
     [self addGesture];
     
     // 设置锚点
-    [self setAnchorPoint:CGPointMake(0.5, 1.2) forView:_contentView];
+    [self setAnchorPoint:CGPointMake(0.5, 1.5) forView:self.view];
 }
 
 - (void)addGesture
@@ -36,20 +34,12 @@ static const NSTimeInterval kAnimationDuration = 0.25;
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
                                                     initWithTarget:self
                                                             action:@selector(handlePan:)];
-    [_contentView addGestureRecognizer:panGestureRecognizer];
+    [self.view addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)setupUI
 {
     self.view.backgroundColor = [UIColor greenColor];
-    
-    self.contentView = ({
-        _contentView = [[UIView alloc] init];
-        _contentView.frame = self.view.bounds;
-        _contentView.backgroundColor = [UIColor yellowColor];
-        [self.view addSubview:_contentView];
-        _contentView;
-    });
 }
 
 /** 给需要旋转的view设置锚点, 否则view的旋转不收控制 */
@@ -69,45 +59,36 @@ static const NSTimeInterval kAnimationDuration = 0.25;
 #pragma mark *** 手势拖动 ***
 - (void)handlePan:(UIPanGestureRecognizer *)panGesture
 {
-    CGPoint touchPoint = [panGesture locationInView:[UIApplication sharedApplication].keyWindow];
-    if (panGesture.state == UIGestureRecognizerStateBegan) {
-        [self handlePanBegan:panGesture touchPoint:touchPoint];
+    CGPoint translation = [panGesture translationInView:panGesture.view];
+    
+    if (panGesture.state == UIGestureRecognizerStateChanged) {
+        
+        [self moveViewWithX:translation.x];
     }
     else if (panGesture.state == UIGestureRecognizerStateEnded ||
              panGesture.state == UIGestureRecognizerStateCancelled) {
-        [self handlePanEnded:panGesture touchPoint:touchPoint];
+        
+        [self handlePanEnded:panGesture translationX:translation.x];
         return;
     }
-    if (_isMoving) {
-        NSLog(@"touchPoint======%f",touchPoint.x);
-        NSLog(@"_startPoint=====%f",_startPoint.x);
-        [self moveViewWithX:touchPoint.x - _startPoint.x];
-    }
-}
-
-- (void)handlePanBegan:(UIPanGestureRecognizer *)panGesture
-            touchPoint:(CGPoint)touchPoint
-{
-    _isMoving = YES;
-    _startPoint = touchPoint;
 }
 
 - (void)handlePanEnded:(UIPanGestureRecognizer *)panGrsture
-            touchPoint:(CGPoint)touchPoint
+            translationX:(CGFloat)translationX
 {
-    if (touchPoint.x - _startPoint.x > ScreenWidth * 0.5) {
+    if (translationX > ScreenWidth * 0.5) {
         [self rotationAnimation:^{
-            [self moveViewWithX:1910.f];
+            [self moveViewWithX:kDivideNum*ScreenWidth];
         }];
     }
-    else if (touchPoint.x - _startPoint.x < -ScreenWidth * 0.5) {
+    else if (translationX < -ScreenWidth * 0.5) {
         [self rotationAnimation:^{
-            [self moveViewWithX:-1910.f];
+            [self moveViewWithX:-kDivideNum*ScreenWidth];
         }];
     }
     else {
         [self rotationAnimation:^{
-            _contentView.transform = CGAffineTransformIdentity;
+            self.view.transform = CGAffineTransformIdentity;
         }];
     }
 }
@@ -117,17 +98,31 @@ static const NSTimeInterval kAnimationDuration = 0.25;
 {
     [UIView animateWithDuration:kAnimationDuration
                      animations:animations
-                     completion:^(BOOL finished) {
-        _isMoving = NO;
-    }];
+                     completion:nil];
 }
 
 - (void)moveViewWithX:(CGFloat)x
 {
+    NSLog(@"x=====%f",x);
     //计算角度
-    double angle = M_PI/6 * (x / ScreenWidth);
+    double angle = M_PI/kDivideNum * (x / ScreenWidth);
     //旋转
-    _contentView.transform = CGAffineTransformMakeRotation(angle);
+    self.view.transform = CGAffineTransformMakeRotation(angle);
+}
+
+#pragma mark *** 公共方法 ***
++ (instancetype)showInController:(UIViewController *)viewController
+{
+    ZKRotationViewController *rotationVC = [[ZKRotationViewController alloc] init];
+    [rotationVC moveViewWithX:2*ScreenWidth];
+    [viewController addChildViewController:rotationVC];
+    [viewController.view addSubview:rotationVC.view];
+    
+    [rotationVC rotationAnimation:^{
+        rotationVC.view.transform = CGAffineTransformIdentity;
+    }];
+    
+    return rotationVC;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ZKMainViewController.h"
+#import "ZKRotationViewController.h"
 
 @interface ZKMainViewController ()
 
@@ -17,6 +18,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (IBAction)switchButtonClick
+{
+    [ZKRotationViewController showInController:self];
 }
 
 @end

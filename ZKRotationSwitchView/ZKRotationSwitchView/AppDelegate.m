@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZKRotationViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    ZKRotationViewController *vc = [[ZKRotationViewController alloc] init];
+    self.window.rootViewController = vc;
     
     // Override point for customization after application launch.
     return YES;

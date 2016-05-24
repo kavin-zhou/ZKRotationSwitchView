@@ -15,6 +15,7 @@
 		58BFBAD81CF420B500FD782F /* ZKRotationSwitchViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BFBAD71CF420B500FD782F /* ZKRotationSwitchViewUITests.m */; };
 		58BFBAE91CF4217700FD782F /* ZKMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BFBAE71CF4217700FD782F /* ZKMainViewController.m */; };
 		58BFBAEA1CF4217700FD782F /* ZKMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BFBAE81CF4217700FD782F /* ZKMainViewController.xib */; };
+		58BFBAEE1CF4245600FD782F /* ZKRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BFBAED1CF4245600FD782F /* ZKRotationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		58BFBAE61CF4217700FD782F /* ZKMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKMainViewController.h; sourceTree = "<group>"; };
 		58BFBAE71CF4217700FD782F /* ZKMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKMainViewController.m; sourceTree = "<group>"; };
 		58BFBAE81CF4217700FD782F /* ZKMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZKMainViewController.xib; sourceTree = "<group>"; };
+		58BFBAEC1CF4245600FD782F /* ZKRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKRotationViewController.h; sourceTree = "<group>"; };
+		58BFBAED1CF4245600FD782F /* ZKRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKRotationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +147,18 @@
 				58BFBAE61CF4217700FD782F /* ZKMainViewController.h */,
 				58BFBAE71CF4217700FD782F /* ZKMainViewController.m */,
 				58BFBAE81CF4217700FD782F /* ZKMainViewController.xib */,
+				58BFBAEB1CF4244300FD782F /* ZKRotationViewController */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		58BFBAEB1CF4244300FD782F /* ZKRotationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				58BFBAEC1CF4245600FD782F /* ZKRotationViewController.h */,
+				58BFBAED1CF4245600FD782F /* ZKRotationViewController.m */,
+			);
+			path = ZKRotationViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58BFBAB71CF420B500FD782F /* AppDelegate.m in Sources */,
+				58BFBAEE1CF4245600FD782F /* ZKRotationViewController.m in Sources */,
 				58BFBAB41CF420B500FD782F /* main.m in Sources */,
 				58BFBAE91CF4217700FD782F /* ZKMainViewController.m in Sources */,
 			);
